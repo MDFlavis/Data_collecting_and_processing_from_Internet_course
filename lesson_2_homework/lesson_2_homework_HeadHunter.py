@@ -1,9 +1,8 @@
 import time
-
 import requests
 import json
 from bs4 import BeautifulSoup
-from pprint import pprint
+
 
 
 class HeadHunterScrapper:
@@ -43,16 +42,15 @@ class HeadHunterScrapper:
     #Метод для старта скрапера
     def start_scrapping(self):
         while self.page_counter != self.number_of_pages:
-
-                for vacancy in self.get_vacancies():
-                    self.get_result(vacancy)
-                    self.to_json(self.get_result(vacancy))
-                print(f'Со страницы {self.page_counter} было добавлено {len(self.get_vacancies())} обьявлений ')
-                self.page_counter = self.page_counter + 1
-                time.sleep(2)
-                if len(self.get_vacancies()) == 0:
-                    print('Количество страниц, которое вы ввели превышает количество страниц, имеющихся на сайте.')
-                    break
+            for vacancy in self.get_vacancies():
+                self.get_result(vacancy)
+                self.to_json(self.get_result(vacancy))
+            print(f'Со страницы {self.page_counter} было добавлено {len(self.get_vacancies())} обьявлений ')
+            self.page_counter = self.page_counter + 1
+            time.sleep(2)
+            if len(self.get_vacancies()) == 0:
+                print('Количество страниц, которое вы ввели превышает количество страниц, имеющихся на сайте.')
+                break
 
     # Анализирует элемент vacancy_divs, возвращает result для 1 вакансии
     def get_result(self, element_from_vacancy_divs):
