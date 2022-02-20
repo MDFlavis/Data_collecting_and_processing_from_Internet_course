@@ -41,16 +41,17 @@ class HeadHunterScrapper:
 
     #Метод для старта скрапера
     def start_scrapping(self):
+        result_list = []
         while self.page_counter != self.number_of_pages:
             for vacancy in self.get_vacancies():
-                self.get_result(vacancy)
-                self.to_json(self.get_result(vacancy))
+                result_list.append(self.get_result(vacancy))
             print(f'Со страницы {self.page_counter} было добавлено {len(self.get_vacancies())} обьявлений ')
             self.page_counter = self.page_counter + 1
             time.sleep(2)
             if len(self.get_vacancies()) == 0:
                 print('Количество страниц, которое вы ввели превышает количество страниц, имеющихся на сайте.')
                 break
+        self.to_json(result_list)
 
     # Анализирует элемент vacancy_divs, возвращает result для 1 вакансии
     def get_result(self, element_from_vacancy_divs):
