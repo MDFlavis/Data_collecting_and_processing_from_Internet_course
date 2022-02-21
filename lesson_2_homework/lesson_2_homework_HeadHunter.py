@@ -32,8 +32,12 @@ class HeadHunterScrapper:
         return num_pages
 
     # Запрос , получение супа страницы, выделение из него блоков с вакансиями
+    # TO DO : hh ВСЕ русские названия в ссылках пишет транскипцией, нужно будет продумать этот момент чтобы скрапер
+    # обрабатывал и те вакансии, которые были введены на русском языке.Мб ввести автоматическую транслитерацию после
+    # ввода искомой вакансии, вообще продумать всю логику этой функции. Она плохо работает, только с вакансиями
+    # профессии, сключевыми словами(text=) не работает. СДЕЛАТЬ ЭТО КАК БУДЕТ ВРЕМЯ ОБЯЗАТЕЛЬНО
     def get_vacancies(self):
-        info = requests.get(f'https://hh.ru/vacancies/data-scientist?page='
+        info = requests.get(f'https://hh.ru/vacancies/{self.vacancy_to_find}?page='
                             f'{self.page_counter}&hhtmFrom=vacancy_search_catalog', headers=self.headers).text
         soup = BeautifulSoup(info, 'html.parser')
         vacancy_divs = soup.find_all('div', attrs={'class': 'vacancy-serp-item'})
