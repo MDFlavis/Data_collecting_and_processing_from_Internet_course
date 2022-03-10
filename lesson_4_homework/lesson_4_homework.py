@@ -50,12 +50,6 @@ from dotenv import load_dotenv
 
 
 class NewsParser:
-    import os
-    import requests
-    import time
-    from lxml import html
-    from pymongo import MongoClient
-    from dotenv import load_dotenv
 
     def __init__(self):
         self.env_path = '.env'
